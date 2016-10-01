@@ -1,0 +1,77 @@
+<!--link rel="stylesheet" href="/var/www/html/Symfony/first_symfony/web/bundles/framework/css/add_product.css" /-->
+{#  stylesheets '@AppBundle/Resources/public/css/*.css' %}
+<link type="text/css" rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets #}
+{% include '/var/www/html/Symfony/first_symfony/app/Resources/views/core/bootstrap.html' %}
+<link rel="stylesheet" href="{{ asset('bundles/framework/css/add_product.css') }}">
+
+
+<div class="container">
+    <h2 class="page-header">
+        Products <button id="add-product-button" class="btn btn-success">
+            Add Product <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </h2>
+    <div class="row">
+        <div class="col-md-3">
+            {% include '/var/www/html/Symfony/first_symfony/app/Resources/views/core/navigation.html' %}
+        </div>
+        <div class="col-md-9">
+            <table class="table table-striped">
+                <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price($)</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th colspan="2">Actions</th>
+                </thead>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.getId() }}</td>
+                        <td>{{ product.getName() }}</td>
+                        <td>{{ product.getPrice() }}</td>
+                        <td>{{ product.getDescription() }}</td>
+                        <td>{{ product.getCategoryId() }}</td>
+                        <td>
+                            <a href="/product/delete/{{ product.getId() }}" class="btn btn-danger">
+                                Delete <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/product/edit/{{ product.getId() }}" class="btn btn-warning">
+                                Edit <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="add-product-modal" class="modal">
+    <div class="modal-content">
+        <span class="close close-add-product">x</span>
+        <h3 class="page-header text-center">Add Product</h3>
+        <form method="post" action="{{ addUrl }}">
+            <input class="form-control add-product-input" type="text" name="name" placeholder="Name">
+            <input class="form-control add-product-input" type="number" name="price" placeholder="Price">
+            <input class="form-control add-product-input" type="text" name="description" placeholder="Description">
+            <label class="add-product-input" for="categoryId">Select category:</label>
+            <select class="form-control add-product-input" name="categoryId">
+                {% for category in categories %}
+                    <option value="{{ category.getId() }}">{{ category.getTitle() }}</option>
+                {% endfor %}
+            </select>
+            <input class="btn btn-info add-product-submit" type="submit" value="Add">
+        </form>
+    </div>
+</div>
+
+<!--script src="/var/www/html/Symfony/first_symfony/web/bundles/framework/js/add_product.js"></script-->
+{#  javascripts '@AppBundle/Resources/public/js/*.js' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts #}
+
+<script src="{{ asset('bundles/framework/js/add_product.js') }}"></script>

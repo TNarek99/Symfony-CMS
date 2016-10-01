@@ -1,0 +1,11 @@
+{% include '/var/www/html/Symfony/first_symfony/app/Resources/views/core/bootstrap.html' %}
+<link rel="stylesheet" href="{{ asset('bundles/framework/css/add_product.css') }}">
+
+<div class="container">
+    <br>
+    <form method="post" action="/category/edit/{{ category.getId() }}">
+        <input class="form-control add-product-input" type="text" name="title" placeholder="Title" value="{{ category.getTitle() }}">
+        <input class="btn btn-info add-product-submit" type="submit" value="OK">
+    </form>
+    <a href="/category/list" class="btn btn-success add-product-submit">List of Categories</a>
+</div>
